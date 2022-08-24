@@ -98,10 +98,10 @@ function operate(newop){
     const second = parseInt(data[1]);
     //does the operation depending on which one it is
     switch(currentop){
-        case `×`: currentnum = first * second; break;
-        case `÷`: currentnum = first / second; break;
-        case `+`: currentnum = first + second; break;
-        case `-`: currentnum = first - second; break;
+        case `×`: currentnum = `${first * second}`; break;
+        case `÷`: currentnum = `${parseInt(first / second * 100)/100}`; break;
+        case `+`: currentnum = `${first + second}`; break;
+        case `-`: currentnum = `${first - second}`; break;
         default: currentnum = 0;
     }
     currentnum += newop;
@@ -113,9 +113,55 @@ function operate(newop){
 const numbuttons = document.querySelectorAll(".number");
 numbuttons.forEach(num => num.addEventListener("click",includeNum));
 
+//adds operation to statement when pressed, if already has one, does the expression
 const opbuttons = document.querySelectorAll(".operation");
 opbuttons.forEach(op => op.addEventListener("click",addOperation))
 
+const clear = document.querySelector(".clear");
+clear.addEventListener("click",function(){
+    answer = ``;
+    currentop = ``;
+    currentnum = `0`;
+    updateDisplay();
+    this.classList.add("pressed");
+})
+
+const del = document.querySelector(".delete");
+del.addEventListener("click", function(){
+    if (currentnum.length == 1){
+        currentnum = `0`;
+    } else {
+        currentnum = currentnum.substring(0,currentnum.length-1);
+    }
+    updateDisplay();
+    this.classList.add("pressed");
+})
+
+const eq = document.querySelector(".equal");
+eq.addEventListener("click",function(){
+    const inputEndsWithOp = currentnum.charAt(currentnum.length-1) == currentop;
+    if (!inputEndsWithOp && !(currentop == ``)){
+        //basically copy and paste from operate but just doesn't add a new operation
+        let data = currentnum.split(currentop);
+        if (currentop == currentnum.charAt(0)) {
+            data = currentnum.substring(1).split(currentop);
+            data[0] = -data[0];
+        }
+        answer = currentnum;
+        const first = parseInt(data[0]);
+        const second = parseInt(data[1]);
+        switch(currentop){
+            case `×`: currentnum = `${first * second}`; break;
+            case `÷`: currentnum = `${parseInt(first / second * 100)/100}`; break;
+            case `+`: currentnum = `${first + second}`; break;
+            case `-`: currentnum = `${first - second}`; break;
+            default: currentnum = 0;
+        }
+        currentop = ``;
+        updateDisplay();
+    }
+    this.classList.add("pressed");
+})
 
 //removes pressed from buttons after animation
 const btns = document.querySelectorAll("button");
