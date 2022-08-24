@@ -49,7 +49,9 @@ function updateDisplay(){
     const screeninput = document.querySelector(".input");
     screeninput.textContent = currentnum;
     const screenans = document.querySelector(".answer");
-    screenans.textContent = answer;
+    let eqsign = ``;
+    if (answer != ``) eqsign = `=`;
+    screenans.textContent = `${answer+eqsign}`;
 }
 
 
@@ -161,6 +163,16 @@ eq.addEventListener("click",function(){
         updateDisplay();
     }
     this.classList.add("pressed");
+})
+
+const dec = document.querySelector(".decimal");
+dec.addEventListener("click",function(){
+    const inputEndsWithOp = currentnum.charAt(currentnum.length-1) == currentop;
+    if (!inputEndsWithOp && currentnum.indexOf(`.`) == -1){
+        currentnum += `.`;
+    }
+    this.classList.add("pressed");  
+    updateDisplay();
 })
 
 //removes pressed from buttons after animation
