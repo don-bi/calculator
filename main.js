@@ -98,7 +98,7 @@ function operate(newop){
     answer = currentnum;
     const first = parseInt(data[0]);
     const second = parseInt(data[1]);
-    if (currentop == `÷` && second == `0`) prompt("You can't divide by 0!");
+    if (currentop == `÷` && second == `0`) alert("You can't divide by 0!");
     //does the operation depending on which one it is
     switch(currentop){
         case `×`: currentnum = `${first * second}`; break;
@@ -153,7 +153,7 @@ eq.addEventListener("click",function(){
         answer = currentnum;
         const first = parseInt(data[0]);
         const second = parseInt(data[1]);
-        if (currentop == `÷` && second == `0`) prompt("You can't divide by 0!");
+        if (currentop == `÷` && second == `0`) alert("You can't divide by 0!");
         switch(currentop){
             case `×`: currentnum = `${first * second}`; break;
             case `÷`: currentnum = `${parseInt(first / second * 100)/100}`; break;
