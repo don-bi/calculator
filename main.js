@@ -1,3 +1,9 @@
+//variables for storing 
+let answer = ``;
+let currentnum = `0`;
+let currentop = ``;
+
+
 //vars containing the rows 
 const one = document.querySelector(".one");
 const two = document.querySelector(".two");
@@ -35,3 +41,22 @@ addButton(three, "add", "+");
 addButton(four, "decimal", ".");
 addButton(four, "equal", "=");
 addButton(four, "subtract", "-");
+
+//does intial display update
+updateDisplay();
+
+function updateDisplay(){
+    const screeninput = document.querySelector(".input");
+    screeninput.textContent = currentnum;
+    const screenans = document.querySelector(".answer");
+    screenans.textContent = answer;
+}
+
+
+function includeNum(e){
+    currentnum += this.textContent;
+    updateDisplay();
+}
+
+const numbuttons = document.querySelectorAll(".number");
+numbuttons.forEach(num => num.addEventListener("click",includeNum))
