@@ -54,9 +54,20 @@ function updateDisplay(){
 
 
 function includeNum(e){
-    currentnum += this.textContent;
-    updateDisplay();
+    if (currentnum.length < 15) { 
+        currentnum += this.textContent;
+        updateDisplay();
+    }
+    this.classList.add("pressed");
 }
 
+//adds eventlistener for when numbers are pressed to add it to the input string
 const numbuttons = document.querySelectorAll(".number");
-numbuttons.forEach(num => num.addEventListener("click",includeNum))
+numbuttons.forEach(num => num.addEventListener("click",includeNum));
+
+
+//removes pressed from buttons after animation
+const btns = document.querySelectorAll("button");
+btns.forEach(btn => btn.addEventListener("transitionend", function(){
+    btn.classList.remove("pressed");
+}))
